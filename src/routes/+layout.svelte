@@ -7,6 +7,7 @@
 	<nav class="flex gap-4">
 		<a href="/" class="text-white hover:text-gray-400">Top</a>
 		<a href="/profiles" class="text-white hover:text-gray-400">Profile</a>
+		<a href="/articles" class="text-white hover:text-gray-400">Article</a>
 	</nav>
 </header>
 
