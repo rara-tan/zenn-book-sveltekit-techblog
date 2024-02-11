@@ -1,11 +1,12 @@
 <script>
 	export let data;
+	import ArticleLink from '../../lib/components/ArticleLink.svelte';
 </script>
 
 <ul>
 	{#each data.articles as article}
 		<li>
-			<a rel="prefetch" href="/articles/{article.slug}">{article.metadata.title}</a>
+			<ArticleLink {article} />
 		</li>
 	{/each}
 </ul>
