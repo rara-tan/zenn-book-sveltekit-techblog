@@ -3,9 +3,9 @@
 </script>
 
 <div class="flex flex-col min-h-screen">
-	<header class="flex items-center justify-between px-6 py-4 bg-black">
+	<header class="flex items-center justify-between px-6 py-3 bg-black">
 		<h1>
-			<a href="/" class="text-white font-bold text-2xl">Tech Blog</a>
+			<a href="/" class="text-white font-bold text-xl">Tech Blog</a>
 		</h1>
 		<nav class="flex gap-4">
 			<a href="/" class="text-white hover:text-gray-400">Top</a>
