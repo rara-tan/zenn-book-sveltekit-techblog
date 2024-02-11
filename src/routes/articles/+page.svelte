@@ -1,6 +1,6 @@
 <script>
 	export let data;
-	import ArticleLink from '../../lib/components/ArticleLink.svelte';
+	import ArticleLink from '$lib/components/ArticleLink.svelte';
 </script>
 
 <ul>
