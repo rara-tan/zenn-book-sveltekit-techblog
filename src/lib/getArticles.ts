@@ -24,5 +24,11 @@ export function getArticles(): ArticleInfo[] {
 		return { slug, metadata: data as Metadata };
 	});
 
+	articles.sort((a, b) => {
+		const aDate = new Date(a.metadata.date);
+		const bDate = new Date(b.metadata.date);
+		return bDate.valueOf() - aDate.valueOf();
+	});
+
 	return articles;
 }

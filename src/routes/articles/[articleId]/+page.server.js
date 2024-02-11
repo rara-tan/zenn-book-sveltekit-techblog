@@ -3,6 +3,7 @@ import path from 'path';
 import { promisify } from 'util';
 import markdown from 'markdown-it'; // 外部ライブラリである markdown-it を使用してマークダウンをHTMLに変換
 import matter from 'gray-matter';
+import { format } from 'date-fns';
 
 const readFile = promisify(fs.readFile);
 
@@ -25,10 +26,15 @@ export async function load({ params }) {
 	const mdParser = new markdown();
 	const htmlContent = mdParser.render(parsedMatter.content);
 
+	let metadata = parsedMatter.data;
+	if (metadata.date instanceof Date) {
+		metadata.date = format(metadata.date, 'yyyy-MM-dd');
+	}
+
 	// 枠組みに提供するデータを返す
 	return {
 		params,
 		htmlContent, // マークダウンをHTMLに変換したもの
-		metadata: parsedMatter.data // メタデータ
+		metadata // メタデータ
 	};
 }
