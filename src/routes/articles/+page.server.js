@@ -1,9 +1,9 @@
-import { getArticleSlugs } from '../../lib/getArticleSlugs';
+import { getArticles } from '../../lib/getArticles';
 
 export async function load() {
-	const slugs = getArticleSlugs();
+	const articles = getArticles();
 
 	return {
-		slugs
+		articles
 	};
 }

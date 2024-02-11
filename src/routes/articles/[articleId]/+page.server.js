@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
 import markdown from 'markdown-it'; // 外部ライブラリである markdown-it を使用してマークダウンをHTMLに変換
+import matter from 'gray-matter';
 
 const readFile = promisify(fs.readFile);
 
@@ -19,12 +20,15 @@ export async function load({ params }) {
 		console.error('Error reading file:', err);
 	}
 
+	// gray-matterを使ってMarkdownとFront Matterを分離
+	const parsedMatter = matter(fileContent);
 	const mdParser = new markdown();
-	const htmlContent = mdParser.render(fileContent || ''); // マークダウンをHTMLに変換
+	const htmlContent = mdParser.render(parsedMatter.content);
 
 	// 枠組みに提供するデータを返す
 	return {
 		params,
-		htmlContent // 各マークダウンの中身
+		htmlContent, // マークダウンをHTMLに変換したもの
+		metadata: parsedMatter.data // メタデータ
 	};
 }

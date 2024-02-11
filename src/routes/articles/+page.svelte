@@ -3,9 +3,9 @@
 </script>
 
 <ul>
-	{#each data.slugs as slug}
+	{#each data.articles as article}
 		<li>
-			<a rel="prefetch" href="/articles/{slug}">{slug}</a>
+			<a rel="prefetch" href="/articles/{article.slug}">{article.metadata.title}</a>
 		</li>
 	{/each}
 </ul>
