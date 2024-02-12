@@ -1,4 +1,5 @@
 <script>
+	import { format } from 'date-fns';
 	export let article;
 </script>
 
@@ -15,7 +16,7 @@
 			>
 				{article.metadata.category}
 			</p>
-			<p class="text-gray-500 text-xs">{article.metadata.date}</p>
+			<p class="text-gray-500 text-xs">{format(new Date(article.metadata.date), 'yyyy-MM-dd')}</p>
 		</div>
 	</div>
 </a>
