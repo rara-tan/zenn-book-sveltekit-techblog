@@ -1,3 +1,8 @@
+<svelte:head>
+	<title>My Profile</title>
+	<meta name="description" content="This is my profile." />
+</svelte:head>
+
 <div class="mb-12">
 	<h1 class="text-3xl font-bold mb-2">Yossy</h1>
 	<p class="text-lg">Platform Engineer at UPSIDER</p>

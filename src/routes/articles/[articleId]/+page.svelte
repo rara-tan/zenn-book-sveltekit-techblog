@@ -2,6 +2,11 @@
 	export let data;
 </script>
 
+<svelte:head>
+	<title>{data.metadata.title}</title>
+	<meta name="description" content={data.metadata.description} />
+</svelte:head>
+
 <div class="py-8 px-4 mb-10 rounded-lg flex flex-col items-center bg-slate-100">
 	<h1 class="text-3xl font-bold">{data.metadata.title}</h1>
 	<div class="flex justify-center items-center w-full mt-4">
