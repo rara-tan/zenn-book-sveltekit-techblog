@@ -2,6 +2,21 @@
 	import '../app.css';
 </script>
 
+<svelte:head>
+	<!-- Google tag (gtag.js) -->
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-B15JLW0LWG"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'G-B15JLW0LWG');
+	</script>
+</svelte:head>
+
 <div class="flex flex-col min-h-screen">
 	<header class="flex items-center justify-between px-6 py-3 bg-black">
 		<h1>
