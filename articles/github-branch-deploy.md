@@ -3,6 +3,7 @@ title: 'Githubのブランチデプロイモデルを解説する'
 description: 'Githubのmainブランチにマージをした後にデプロイをするマージデプロイモデルではなく、プルリクエスト上でデプロイを完了してからマージするブランチデプロイモデルを解説します。'
 date: 2024-02-18
 category: github
+thumbnail: 'github-branch-deploy.png'
 ---
 
 ## ブランチデプロイモデル
