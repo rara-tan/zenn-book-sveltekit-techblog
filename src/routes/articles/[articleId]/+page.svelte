@@ -7,15 +7,19 @@
 	<meta name="description" content={data.metadata.description} />
 </svelte:head>
 
-<div class="py-8 px-4 mb-10 rounded-lg flex flex-col items-center bg-slate-100">
-	<h1 class="text-3xl font-bold">{data.metadata.title}</h1>
+<div class="pb-12 px-0 md:pt-3 md:px-6 flex flex-col items-center">
+	<div>
+		<img
+			class="h-96 w-full object-cover rounded-lg"
+			src={`/thumbnails/${data.metadata.thumbnail}`}
+		/>
+	</div>
+	<h1 class="text-3xl font-semibold mt-8">{data.metadata.title}</h1>
 	<div class="flex justify-center items-center w-full mt-4">
-		<p
-			class="inline-flex items-center px-2 py-1 bg-indigo-100 text-indigo-800 rounded-lg text-sm mr-2"
-		>
+		<p class="inline-flex items-center px-2 py-1 bg-blue-200 text-blue-800 rounded text-xs mr-2">
 			{data.metadata.category}
 		</p>
-		<p class="text-lg text-gray-600 ml-2 text-s">{data.metadata.date}</p>
+		<p class="text-md text-gray-700 ml-2">{data.metadata.date}</p>
 	</div>
 </div>
 
