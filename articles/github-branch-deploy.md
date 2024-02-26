@@ -455,6 +455,138 @@ jobs:
 
 こうすることで、`result`ジョブはBranch Deployで指定した環境名でジョブを実行するため、Githubの`Environment`を利用することができます。
 
+## Branch DeployモデルのParameter
+
+Branch Deployモデルを利用する際にPull RequestからWorkflowに対して自由に値を渡したくなることもあります。
+
+そんな時はBranch DeployモデルのParameterを利用すると、自由にパラメーターを設定することができます。
+
+### param_separatorオプション
+
+https://github.com/github/branch-deploy/blob/main/docs/parameters.md
+
+上記公式ドキュメントのように、Github Branch Deployモデルでは、`param_separator`オプションを利用することで自由にパラメータをWorkflowに引き渡すことができます。
+
+`demo.yml`
+```yaml
+    steps:
+      - name: branch-deploy
+        id: branch-deploy
+        uses: github/branch-deploy@v9.0.0
+        with:
+          environment_targets: staging-demo,production-demo
+          param_separator: "|"
+```
+
+と指定した場合、`|`の後のパラメータをWorkflowに引き渡すことが可能です。
+
+例えば`.deploy staging-demo | aaa bbb ccc`というコマンドを実行した場合、`params`には`aaa bbb ccc`という値が入ります。
+
+そして、その値を`steps.branch-deploy.outputs.params`にてWorkflow上で取得できます。
+
+#### Parameterを指定してWorkflowを実行する
+
+実際にParameterを指定してWorkflowを実行します。
+
+`demo.yml`
+```yaml
+    steps:
+      - name: branch-deploy
+        id: branch-deploy
+        uses: github/branch-deploy@v9.0.0
+        with:
+          environment_targets: staging-demo,production-demo
+
+      - name: example
+        if: steps.branch-deploy.outputs.continue == 'true'
+        run: |
+          echo "params: ${{ steps.branch-deploy.outputs.params }}"
+```
+
+このように、指定したパラメータをechoでlogに表示できるようにして、以下のようにPull Request上からコマンド実行します。
+
+![Brach Deploy Model](/images/github-branch-deploy/17.png)
+
+すると、Github Actions上の`branch-deploy`ステップでは`🧮 detected parameters in command: aaa bbb ccc`というパラメータを取得したことを示すログが出ています。
+
+また、`exmaple`ステップの結果では、指定した通り`aaa bbb ccc`というパラメータのログが表示されています。
+
+![Brach Deploy Model](/images/github-branch-deploy/18.png)
+
+### Key=Value形式でパラメータを指定する
+
+パラメータの指定ができるのようになったので、複数の種類のパラメータを指定する方法を紹介します。
+
+例えば、`CPU=4`, `MEMORY=2000`といった具合にKey=Value形式で複数の種類のパラメータを指定したい場合
+
+`.deploy staging-demo | CPU=4,MEMORY=2000`
+
+といった具合にパラメータの中で`,`等のセパレータを用意します。
+
+そのseparaterを目印にGithub Actions上で各パラメータを取得します。
+
+`demo.yml`
+```yaml
+      - name: branch-deploy
+        id: branch-deploy
+        uses: github/branch-deploy@v9.0.0
+        with:
+          environment_targets: staging-demo,production-demo
+
+      - name: Parse Branch Deploy Parameter
+        if: steps.branch-deploy.outputs.continue == 'true'
+        id: parse-parameter
+        run: |
+          paramString="${{ steps.branch-deploy.outputs.params }}"
+          IFS=', ' read -r -a pairs <<< "$paramString"
+          for pair in "${pairs[@]}"
+          do
+            IFS='=' read -r key value <<< "$pair"
+            echo "::set-output name=$key::$value"
+          done
+
+      - name: CPU Value
+        if: steps.branch-deploy.outputs.continue == 'true'
+        run: echo ${{ steps.parse-parameter.outputs.CPU }}
+      - name: MEMORY Value
+        if: steps.branch-deploy.outputs.continue == 'true'
+        run: echo ${{ steps.parse-parameter.outputs.MEMORY }}
+```
+
+このようにYAMLファイルを設定すると、Parameterとして指定した`CPU`と`MEMORY`をそれぞれ取得できます。
+
+試しに上記YAMLファイルで動作するGithub Actionsをコメントから実行します。
+
+![Brach Deploy Model](/images/github-branch-deploy/19.png)
+
+このように`.deploy staging-demo | CPU=4,MEMORY=2000`というコメントを追加して、Github Actionsを起動します。
+
+![Brach Deploy Model](/images/github-branch-deploy/20.png)
+
+正常に動作すれば、上記のようにそれぞれのParameterを取得できます。
+
+#### Parameterが存在しない場合StepをSkipする
+
+CPUとMEMORYを指定できるGithub Actionsを作成しましたが、時に片方しか指定しないこともあると思います。
+
+値がない場合は、その値を使うStepをSkipすることも可能です。
+
+`demo.yml`
+```yaml
+      - name: CPU Value
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.parse-parameter.outputs.CPU != '' }}
+        run: echo ${{ steps.parse-parameter.outputs.CPU }}
+```
+
+このように`CPU`パラメータがない場合はSKIPする処理を`CPU Value`Stepに追加して、メモリだけを指定した`.deploy staging-demo | MEMORY=2000`コメントをPRに追加します。
+
+![Brach Deploy Model](/images/github-branch-deploy/21.png)
+
+すると、以下のように`CPU Value`をSkipしたWorkflowが実行されます。
+
+![Brach Deploy Model](/images/github-branch-deploy/22.png)
+
+
 ## まとめ
 
 GithubのBranch Deployモデルについて解説しました。
