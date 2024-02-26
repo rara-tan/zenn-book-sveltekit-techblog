@@ -503,7 +503,7 @@ https://github.com/github/branch-deploy/blob/main/docs/parameters.md
           echo "params: ${{ steps.branch-deploy.outputs.params }}"
 ```
 
-このように、指定したパラメータをechoでlogに表示できるようにして、以下のようにPull Request上からコマンド実行します。
+このように指定したパラメータをechoでlogに表示できるようにして、以下のようにPull Request上からコマンド実行します。
 
 ![Brach Deploy Model](/images/github-branch-deploy/17.png)
 
@@ -515,7 +515,7 @@ https://github.com/github/branch-deploy/blob/main/docs/parameters.md
 
 ### Key=Value形式でパラメータを指定する
 
-パラメータの指定ができるのようになったので、複数の種類のパラメータを指定する方法を紹介します。
+パラメータの指定ができるようになったので、複数の種類のパラメータを指定する方法を紹介します。
 
 例えば、`CPU=4`, `MEMORY=2000`といった具合にKey=Value形式で複数の種類のパラメータを指定したい場合
 
@@ -559,7 +559,7 @@ https://github.com/github/branch-deploy/blob/main/docs/parameters.md
 
 ![Brach Deploy Model](/images/github-branch-deploy/19.png)
 
-このように`.deploy staging-demo | CPU=4,MEMORY=2000`というコメントを追加して、Github Actionsを起動します。
+`.deploy staging-demo | CPU=4,MEMORY=2000`というコメントを追加して、Github Actionsを起動します。
 
 ![Brach Deploy Model](/images/github-branch-deploy/20.png)
 
@@ -567,7 +567,7 @@ https://github.com/github/branch-deploy/blob/main/docs/parameters.md
 
 #### Parameterが存在しない場合StepをSkipする
 
-CPUとMEMORYを指定できるGithub Actionsを作成しましたが、時に片方しか指定しないこともあると思います。
+CPUとMEMORYを指定できるGithub Actionsを作成しましたが、片方しか指定しないこともあると思います。
 
 値がない場合は、その値を使うStepをSkipすることも可能です。
 
