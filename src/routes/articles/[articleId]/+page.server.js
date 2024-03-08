@@ -4,6 +4,7 @@ import { promisify } from 'util';
 import markdown from 'markdown-it'; // 外部ライブラリである markdown-it を使用してマークダウンをHTMLに変換
 import matter from 'gray-matter';
 import { format } from 'date-fns';
+import { getArticles } from '$lib/getArticles';
 
 const readFile = promisify(fs.readFile);
 
@@ -31,8 +32,10 @@ export async function load({ params }) {
 		metadata.date = format(metadata.date, 'yyyy-MM-dd');
 	}
 
+	const articles = getArticles();
 	// 枠組みに提供するデータを返す
 	return {
+		articles,
 		params,
 		htmlContent, // マークダウンをHTMLに変換したもの
 		metadata // メタデータ
