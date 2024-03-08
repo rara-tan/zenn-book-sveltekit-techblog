@@ -18,7 +18,7 @@
 <div class="flex flex-col min-h-screen">
 	<header class="flex items-center justify-between px-6 py-3 bg-black">
 		<h1>
-			<a href="/" class="text-white font-bold text-xl">Tech Blog</a>
+			<a href="/" class="text-white font-bold text-xl">YssY</a>
 		</h1>
 		<nav class="flex gap-4">
 			<a href="/" class="text-white hover:text-gray-400">Top</a>
@@ -31,7 +31,4 @@
 		<slot />
 	</div>
 
-	<footer class="bg-black py-2 text-center text-white">
-		<p>Yossy: I am a big fan of Harry Potter!</p>
-	</footer>
 </div>
