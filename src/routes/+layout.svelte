@@ -32,6 +32,6 @@
 	</div>
 
 	<footer class="bg-black py-2 text-center text-white">
-		<p>My Awesome Website!</p>
+		<p>Yossy: I am a big fan of Harry Potter!</p>
 	</footer>
 </div>

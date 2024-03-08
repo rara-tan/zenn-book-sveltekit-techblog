@@ -4,12 +4,12 @@
 </script>
 
 <svelte:head>
-	<title>My Awesome Tech Blog</title>
-	<meta name="description" content="This tech blog features many wonderful articles." />
+	<title>Yossy's Tech Blog</title>
+	<meta name="description" content="Platformエンジニアとして働くYossyのテックブログです。技術記事・おすすめ本・おすすめガジェットなどを紹介していきます。" />
 </svelte:head>
 
 <div class="py-8 px-4 mb-10 rounded-lg flex flex-col items-center bg-slate-100">
-	<h1 class="text-3xl font-bold">My Awesome Tech Blog!</h1>
+	<h1 class="text-3xl font-bold">Yossy's Tech Blog!</h1>
 	<div class="mt-4">
 		<p class="text-lg text-gray-600 text-s">
 			This is my tech blog. Packed with tech articles that serve as handy references for software
