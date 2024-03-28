@@ -13,6 +13,7 @@
 		<img
 			class="h-96 w-full object-cover rounded-lg"
 			src={`/thumbnails/${data.metadata.thumbnail}`}
+			alt={data.metadata.title}
 		/>
 	</div>
 	<h1 class="text-3xl font-semibold mt-8">{data.metadata.title}</h1>
@@ -28,14 +29,14 @@
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   <article class="markdown-body mb:pr-4 overflow-auto">{@html data.htmlContent}</article>
 
-  <aside class="md:w-[360px] md:pl-4 md:pt-0 pt-8">
-    <h2 class="text-2xl font-semibold mb-4">More Articles</h2>
-    <ul>
-      {#each data.articles as article}
-        <li>
-          <ArticleLink {article} />
-        </li>
-      {/each}
-    </ul>
-  </aside>
+	<aside class="md:w-[360px] md:pl-4 md:pt-0 pt-8">
+		<h2 class="text-2xl font-semibold mb-4">More Articles</h2>
+		<ul>
+			{#each data.articles as article}
+				<li>
+					<ArticleLink {article} />
+				</li>
+			{/each}
+		</ul>
+	</aside>
 </div>
