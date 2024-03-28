@@ -1,7 +1,7 @@
 [
 	{
 		"title": "未経験からでもSvelteKitを使って3日で技術ブログを作成する",
-		"description": "3連休を利用し、SvelteKitというフロントエンドのフレームワークを使って技術ブログを作りました。/n SvelteKit経験ゼロから技術ブログを作り、独自ドメインでCloudflareにリリースするまでの過程を技術書としてまとめています。/n エンジニア経験があまりない人でも理解できるように画像やソースコードに対する解説を多めに掲載しました。",
+		"description": "このブログの作り方を技術書として公開した本です。この技術書通りに実装を進めていけば誰でもSvelteKitでこのブログと同じものが作成できます。",
 		"category": ["tech", "typescript", "javascript", "frontend", "svelte"],
 		"rating": 5,
 		"link": "https://zenn.dev/ring_belle/books/blog-sveltekit",
@@ -9,7 +9,7 @@
 	},
 	{
 		"title": "Terraformで始めるGCP【CloudRun・CloudSQL】",
-		"description": "Terraformを使って、GCP上にプロジェクトを作成していきます。今回はCloudRunとCloudSQLをPrivateIP接続する構成を作成します。Private IP接続のために、VPCにはServerless VPC Access ConnectorとPrivate Service Accessを設定します。",
+		"description": "このブログの著者であるYossyが書いたGCPのTerraform本です。GCPのCloudRunとCloudSQLをTerraformで構築する方法を解説しています。",
 		"category": ["tech", "terraform", "gcp", "infra"],
 		"rating": 4,
 		"link": "https://zenn.dev/ring_belle/books/gcp-cloudrun-terraform",
