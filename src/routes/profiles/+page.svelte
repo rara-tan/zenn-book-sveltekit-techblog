@@ -1,6 +1,11 @@
 <svelte:head>
-	<title>My Profile</title>
-	<meta name="description" content="This is my profile." />
+	<title>PlatformエンジニアYossyのProfile</title>
+	<meta name="description" content="Platformエンジニアとして働くYossyのプロフィールです。" />
+	<meta property="og:title" content="PlatformエンジニアYossyのProfile" />
+	<meta property="og:description" content="Platformエンジニアとして働くYossyのプロフィールです。" />
+	<meta property="og:site_name" content="Yossy's Tech Blog" />
+	<meta property="og:url" content="https://yssy.io/profiles" />
+	<meta property="og:image" content="https://yssy.io/og.png" />
 </svelte:head>
 
 <div class="mb-12">
