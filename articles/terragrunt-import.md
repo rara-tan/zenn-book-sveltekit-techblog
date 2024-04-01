@@ -1,5 +1,5 @@
 ---
-title: 'Terragruntで既存リソースをStateにImportする方法をまとめる'
+title: 'Terragruntで既存リソースをTerraform StateにImportする方法'
 description: 'Terragruntを利用して既存のGCPリソースをImportする方法を紹介します。'
 date: 2024-04-01
 category: terragrunt
@@ -204,7 +204,7 @@ guarantee to take exactly these actions if you run "terraform apply" now.
 
 ### Terragruntにimportを実行する
 
-Terragruntのソースコード作成とCloudSQLの作成が完了したため、そのCloudSQLを作成したTerragruntでmanageできるようにimportコマンドを実行します。
+Terragruntのソースコード作成とCloudSQLの作成が完了したため、そのCloudSQLをTerragruntでmanageできるようにimportコマンドを実行します。
 
 ```bash
 $ terragrunt import google_sql_database_instance.default import-test
@@ -439,11 +439,11 @@ Note: You didn't use the -out option to save this plan, so Terraform can't
 guarantee to take exactly these actions if you run "terraform apply" now.
 ```
 
-上記のように、`availability_type`, `backup_configuration`の差分がなくなっていることを確認できます。(maintenance_windowはmoduleの構造上差分が出てしまいますので、このまま行きます。また、Timeoutについては追加されても問題ないため追加の差分が出ていて問題ありません。)
+上記のように、`availability_type`, `backup_configuration`の差分がなくなっていることを確認できます。(maintenance_windowはmoduleの構造上差分が出てしまいます。また、Timeoutについては追加されても問題ないため、追加する方針で進めます。)
 
 ## applyを実行する
 
-Importと差分を埋める作業が完了したため、最後の`terragrunt apply`を実行して、環境を綺麗にしておきます。
+Importと差分を埋める作業が完了したため、最後の`terragrunt apply`を実行します。
 
 ```bash
 $ terragrunt apply
@@ -465,24 +465,24 @@ additional_users = <sensitive>
 generated_user_password = <sensitive>
 iam_users = tolist([])
 instance_connection_name = "terragrunt-experiment-project:asia-northeast1:import-test"
-instance_first_ip_address = "34.85.1.28"
+instance_first_ip_address = "IP Address"
 instance_ip_address = tolist([
   {
-    "ip_address" = "34.85.1.28"
+    "ip_address" = "IP Address"
     "time_to_retire" = ""
     "type" = "PRIMARY"
   },
 ])
 instance_name = "import-test"
 instance_psc_attachment = ""
-instance_self_link = "https://sqladmin.googleapis.com/sql/v1beta4/projects/terragrunt-experiment-project/instances/import-test"
+instance_self_link = "Self Link"
 instance_server_ca_cert = <sensitive>
-instance_service_account_email_address = "p464734795047-lkm70e@gcp-sa-cloud-sql.iam.gserviceaccount.com"
+instance_service_account_email_address = "email address"
 instances = <sensitive>
 primary = <sensitive>
 private_address = ""
 private_ip_address = ""
-public_ip_address = "34.85.1.28"
+public_ip_address = "IP Address"
 read_replica_instance_names = []
 replicas = <sensitive>
 replicas_instance_connection_names = []
@@ -520,11 +520,13 @@ guarantee to take exactly these actions if you run "terraform apply" now.
 
 差分がなくなっています。
 
-## Moduleについて
+これで手動作成したリソースをTerragruntで管理する方法の解説は終了です。
+
+## Moduleについて(おまけ)
 
 今回はCommunity Moduleを利用したため、不要な変更差分が出てしまいました。
 
-もし、default-userを作りたくない等の理由がある場合は、自分でTerraform Moduleを作成する必要があります。
+もし、random-passwordを作りたくない等の理由がある場合は、自分でTerraform Moduleを作成する必要があります。
 
 ## まとめ
 
