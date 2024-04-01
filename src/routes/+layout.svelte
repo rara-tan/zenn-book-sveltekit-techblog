@@ -3,7 +3,6 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-B15JLW0LWG"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
