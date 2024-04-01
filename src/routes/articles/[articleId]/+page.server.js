@@ -13,6 +13,8 @@ export async function load({ params }) {
 	const { articleId } = params;
 	// ファイルパスを作成
 	const filePath = path.resolve('articles', `${articleId}.md`);
+	// Extract the filename
+	const slug = path.basename(filePath, '.md');
 
 	// ファイルを読み込む
 	let fileContent;
@@ -35,6 +37,7 @@ export async function load({ params }) {
 	const articles = getArticles();
 	// 枠組みに提供するデータを返す
 	return {
+		slug,
 		articles,
 		params,
 		htmlContent, // マークダウンをHTMLに変換したもの

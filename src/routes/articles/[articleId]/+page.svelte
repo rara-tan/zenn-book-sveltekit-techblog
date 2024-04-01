@@ -6,6 +6,11 @@
 <svelte:head>
 	<title>{data.metadata.title} | Yossy's Tech Blog</title>
 	<meta name="description" content={data.metadata.description} />
+	<meta property="og:title" content={data.metadata.title} />
+	<meta property="og:description" content={data.metadata.description} />
+	<meta property="og:site_name" content="Yossy's Tech Blog" />
+	<meta property="og:url" content="https://yssy.io/articles/{data.slug}" />
+	<meta property="og:image" content="https://yssy.io/thumbnails/{data.metadata.thumbnail}" />
 </svelte:head>
 
 <div class="pb-12 px-0 md:pt-3 md:px-6 flex flex-col items-center">
