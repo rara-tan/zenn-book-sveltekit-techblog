@@ -522,11 +522,23 @@ guarantee to take exactly these actions if you run "terraform apply" now.
 
 これで手動作成したリソースをTerragruntで管理する方法の解説は終了です。
 
-## Moduleについて(おまけ)
+## おまけ
+
+### Moduleについて
 
 今回はCommunity Moduleを利用したため、不要な変更差分が出てしまいました。
 
 もし、random-passwordを作りたくない等の理由がある場合は、自分でTerraform Moduleを作成する必要があります。
+
+### 片付け
+
+実験のために作成したリソースを放置すると料金が発生してしまいます。
+
+`terragrunt destroy` コマンドを利用して、リソースを削除しておきましょう。
+
+```bash
+$ terragrunt destroy
+```
 
 ## まとめ
 
