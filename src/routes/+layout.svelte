@@ -3,6 +3,7 @@
 </script>
 
 <svelte:head>
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-B15JLW0LWG"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
@@ -16,15 +17,18 @@
 </svelte:head>
 
 <div class="flex flex-col min-h-screen">
-	<header class="flex items-center justify-between px-6 py-3 bg-black">
-		<h1>
-			<a href="/" class="text-white font-bold text-xl">Tech Blog</a>
-		</h1>
-		<nav class="flex gap-4">
-			<a href="/" class="text-white hover:text-gray-400">Top</a>
-			<a href="/profiles" class="text-white hover:text-gray-400">Profile</a>
-			<a href="/articles" class="text-white hover:text-gray-400">Article</a>
-			<a href="/books" class="text-white hover:text-gray-400">Book</a>
+	<header
+		class="relative flex items-center justify-between px-1 md:px-3 md:py-1 bg-white shadow-sm"
+	>
+		<div>
+			<a href="/">
+				<img src="/images/logo.png" alt="Logo" class="h-14 w-auto" />
+			</a>
+		</div>
+		<nav class="flex justify-between items-center md:text-lg text-sm font-bold font-serif">
+			<a href="/profiles" class="text-black md:px-3 px-1 hover:text-gray-400">Profile</a>
+			<a href="/articles" class="text-black md:px-3 px-1 hover:text-gray-400">Article</a>
+			<a href="/books" class="text-black md:px-3 px-1 hover:text-gray-400">Book</a>
 		</nav>
 	</header>
 
