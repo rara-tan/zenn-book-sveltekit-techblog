@@ -1,6 +1,26 @@
 <script>
+	import { onMount } from 'svelte';
 	export let data;
 	import ArticleLink from '$lib/components/ArticleLink.svelte';
+	let typingString = '';
+	onMount(async () => {
+		function startTypingAnimation() {
+			const text = "Welcome to Yossy's Tech Blog!";
+			let i = 0;
+			typingString = '';
+			function typeWriter() {
+				if (i < text.length) {
+					typingString += text.charAt(i);
+					i++;
+					setTimeout(typeWriter, 75);
+				} else {
+					setTimeout(startTypingAnimation, 3500);
+				}
+			}
+			typeWriter();
+		}
+		startTypingAnimation();
+	});
 </script>
 
 <svelte:head>
@@ -11,17 +31,20 @@
 	/>
 </svelte:head>
 
-<div class="py-8 px-4 mb-10 rounded-lg flex flex-col items-center bg-slate-100">
-	<h1 class="text-3xl font-bold">Yossy's Tech Blog!</h1>
+<div class="py-6 mb-4 rounded-lg flex flex-col items-center">
+	<div class="h-16 flex items-center justify-center">
+		<h1 class="text-3xl font-bold">{typingString}</h1>
+	</div>
 	<div class="mt-4">
 		<p class="text-lg text-gray-600 text-s">
-			This is my tech blog. Packed with tech articles that serve as handy references for software
-			engineers. Feel free to bookmark if you like what you see!
+			Hi! I'm Yossy, a Platform Engineer.<br />I started this blog to share my thoughts on
+			technology.<br />I hope you enjoy it!
 		</p>
 	</div>
 </div>
 
-<ul>
+<h2 class="text-2xl font-bold mb-4">Latest Articles</h2>
+<ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
 	{#each data.articles as article}
 		<li>
 			<ArticleLink {article} />

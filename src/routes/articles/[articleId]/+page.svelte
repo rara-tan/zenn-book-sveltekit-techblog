@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.metadata.title}</title>
+	<title>{data.metadata.title} | Yossy's Tech Blog</title>
 	<meta name="description" content={data.metadata.description} />
 </svelte:head>
 
@@ -33,7 +33,7 @@
 		<h2 class="text-2xl font-semibold mb-4">More Articles</h2>
 		<ul>
 			{#each data.articles as article}
-				<li>
+				<li class="mb-6">
 					<ArticleLink {article} />
 				</li>
 			{/each}

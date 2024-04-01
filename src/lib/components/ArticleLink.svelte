@@ -6,7 +6,7 @@
 <a
 	rel="prefetch"
 	href="/articles/{article.slug}"
-	class="m-4 pb-4 max-w-sm mx-auto bg-white rounded-lg border border-gray-200 flex flex-col items-start transition-colors duration-200 ease-in-out hover:bg-gray-100 overflow-hidden"
+	class="pb-4 max-w-sm mx-auto bg-white rounded-lg border border-gray-200 flex flex-col items-start transition-colors duration-200 ease-in-out hover:bg-gray-100 overflow-hidden"
 >
 	<div>
 		<img

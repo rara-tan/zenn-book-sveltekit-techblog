@@ -385,7 +385,6 @@ Branch Deployモデルを使う上で問題となるのは、Branch Deployモデ
 `demo.yml`
 
 ```yaml
-
 ---
 jobs:
   demo:

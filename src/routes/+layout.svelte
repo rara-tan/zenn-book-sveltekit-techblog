@@ -15,7 +15,7 @@
 	</script>
 </svelte:head>
 
-<div class="flex flex-col min-h-screen">
+<div class="flex flex-col min-h-screen font-serif">
 	<header
 		class="relative flex items-center justify-between px-1 md:px-3 md:py-1 bg-white shadow-sm"
 	>
