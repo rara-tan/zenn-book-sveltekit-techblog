@@ -29,6 +29,11 @@
 		name="description"
 		content="Platformエンジニアとして働くYossyのテックブログです。技術記事・おすすめ本・おすすめガジェットなどを紹介していきます。"
 	/>
+  <meta property="og:title" content="Yossy's Tech Blog" />
+  <meta property="og:description" content="Platformエンジニアとして働くYossyのテックブログです。技術記事・おすすめ本・おすすめガジェットなどを紹介していきます。" />
+  <meta property="og:site_name" content="Yossy's Tech Blog" />
+  <meta property="og:url" content="https://yssy.io" />
+  <meta property="og:image" content="/og.png" />
 </svelte:head>
 
 <div class="py-6 mb-4 rounded-lg flex flex-col items-center">
