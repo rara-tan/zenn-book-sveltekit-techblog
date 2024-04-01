@@ -27,6 +27,7 @@ Branchデプロイモデルと聞くと「新しい概念が出現した」み�
 `.github/workflows`ディレクトリ配下にYAMLファイルを作成すれば、自動でGithub ActionsのワークフローファイルだとGithubに認識されるので、このディレクトリ配下にファイルを作成します。
 
 `demo.yml`
+
 ```yaml
 name: Demo
 
@@ -81,6 +82,7 @@ issueから実行できるのは便利に見えますが、リリース用のWor
 そのため、Pull Reqestからのみワークフローを実行できるようにif文を追加します。
 
 `demo.yml`
+
 ```yaml
 name: Demo
 
@@ -127,6 +129,7 @@ jobs:
 先ほど作成した`demo.yml`ファイルに`noop deploy`を実装していきます。
 
 `demo.yml`
+
 ```yaml
 name: Demo
 
@@ -184,6 +187,7 @@ jobs:
 今回は、`.deploy`の時のみに実行されるコマンドを実装します。
 
 `demo.yml`
+
 ```yaml
 name: Demo
 
@@ -218,7 +222,6 @@ jobs:
       - name: Regular Deploy
         if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
         run: echo "Regular Deploy!"
-
 ```
 
 最終行に`.deploy`コマンドの時のみ実行されるStepを追加しました。
@@ -252,6 +255,7 @@ jobs:
 それでは、コマンドで環境名を指定したときに実行するコマンドを変える処理を追加します。
 
 `demo.yml`
+
 ```yaml
 name: Demo
 
@@ -342,6 +346,7 @@ https://docs.github.com/en/actions/deployment/targeting-different-environments/u
 Github上のEnvironmentを指定したい場合、以下のようにGithub Actionsのjob毎に設定しなければなりません。
 
 `demo.yml`
+
 ```yaml
 name: Demo
 
@@ -367,7 +372,6 @@ jobs:
       - name: branch-deploy
         id: branch-deploy
         uses: github/branch-deploy@v9.0.0
-...
 ```
 
 このようにすることでGithubのEnvironmentの`production`環境に設定しているSecretやVariablesをワークフロー内で利用することができます。
@@ -379,8 +383,10 @@ Branch Deployモデルを使う上で問題となるのは、Branch Deployモデ
 例えば、
 
 `demo.yml`
+
 ```yaml
-...
+
+---
 jobs:
   demo:
     if: ${{ github.event.issue.pull_request }}
@@ -416,6 +422,7 @@ jobs:
 ソースコードは以下のようになります。
 
 `demo.yml`
+
 ```yaml
 name: Demo
 
@@ -468,14 +475,15 @@ https://github.com/github/branch-deploy/blob/main/docs/parameters.md
 上記公式ドキュメントのように、Github Branch Deployモデルでは、`param_separator`オプションを利用することで自由にパラメータをWorkflowに引き渡すことができます。
 
 `demo.yml`
+
 ```yaml
-    steps:
-      - name: branch-deploy
-        id: branch-deploy
-        uses: github/branch-deploy@v9.0.0
-        with:
-          environment_targets: staging-demo,production-demo
-          param_separator: "|"
+steps:
+  - name: branch-deploy
+    id: branch-deploy
+    uses: github/branch-deploy@v9.0.0
+    with:
+      environment_targets: staging-demo,production-demo
+      param_separator: '|'
 ```
 
 と指定した場合、`|`の後のパラメータをWorkflowに引き渡すことが可能です。
@@ -489,18 +497,19 @@ https://github.com/github/branch-deploy/blob/main/docs/parameters.md
 実際にParameterを指定してWorkflowを実行します。
 
 `demo.yml`
-```yaml
-    steps:
-      - name: branch-deploy
-        id: branch-deploy
-        uses: github/branch-deploy@v9.0.0
-        with:
-          environment_targets: staging-demo,production-demo
 
-      - name: example
-        if: steps.branch-deploy.outputs.continue == 'true'
-        run: |
-          echo "params: ${{ steps.branch-deploy.outputs.params }}"
+```yaml
+steps:
+  - name: branch-deploy
+    id: branch-deploy
+    uses: github/branch-deploy@v9.0.0
+    with:
+      environment_targets: staging-demo,production-demo
+
+  - name: example
+    if: steps.branch-deploy.outputs.continue == 'true'
+    run: |
+      echo "params: ${{ steps.branch-deploy.outputs.params }}"
 ```
 
 このように指定したパラメータをechoでlogに表示できるようにして、以下のようにPull Request上からコマンド実行します。
@@ -526,31 +535,32 @@ https://github.com/github/branch-deploy/blob/main/docs/parameters.md
 そのseparaterを目印にGithub Actions上で各パラメータを取得します。
 
 `demo.yml`
+
 ```yaml
-      - name: branch-deploy
-        id: branch-deploy
-        uses: github/branch-deploy@v9.0.0
-        with:
-          environment_targets: staging-demo,production-demo
+- name: branch-deploy
+  id: branch-deploy
+  uses: github/branch-deploy@v9.0.0
+  with:
+    environment_targets: staging-demo,production-demo
 
-      - name: Parse Branch Deploy Parameter
-        if: steps.branch-deploy.outputs.continue == 'true'
-        id: parse-parameter
-        run: |
-          paramString="${{ steps.branch-deploy.outputs.params }}"
-          IFS=', ' read -r -a pairs <<< "$paramString"
-          for pair in "${pairs[@]}"
-          do
-            IFS='=' read -r key value <<< "$pair"
-            echo "::set-output name=$key::$value"
-          done
+- name: Parse Branch Deploy Parameter
+  if: steps.branch-deploy.outputs.continue == 'true'
+  id: parse-parameter
+  run: |
+    paramString="${{ steps.branch-deploy.outputs.params }}"
+    IFS=', ' read -r -a pairs <<< "$paramString"
+    for pair in "${pairs[@]}"
+    do
+      IFS='=' read -r key value <<< "$pair"
+      echo "::set-output name=$key::$value"
+    done
 
-      - name: CPU Value
-        if: steps.branch-deploy.outputs.continue == 'true'
-        run: echo ${{ steps.parse-parameter.outputs.CPU }}
-      - name: MEMORY Value
-        if: steps.branch-deploy.outputs.continue == 'true'
-        run: echo ${{ steps.parse-parameter.outputs.MEMORY }}
+- name: CPU Value
+  if: steps.branch-deploy.outputs.continue == 'true'
+  run: echo ${{ steps.parse-parameter.outputs.CPU }}
+- name: MEMORY Value
+  if: steps.branch-deploy.outputs.continue == 'true'
+  run: echo ${{ steps.parse-parameter.outputs.MEMORY }}
 ```
 
 このようにYAMLファイルを設定すると、Parameterとして指定した`CPU`と`MEMORY`をそれぞれ取得できます。
@@ -572,10 +582,11 @@ CPUとMEMORYを指定できるGithub Actionsを作成しましたが、片方し
 値がない場合は、その値を使うStepをSkipすることも可能です。
 
 `demo.yml`
+
 ```yaml
-      - name: CPU Value
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.parse-parameter.outputs.CPU != '' }}
-        run: echo ${{ steps.parse-parameter.outputs.CPU }}
+- name: CPU Value
+  if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.parse-parameter.outputs.CPU != '' }}
+  run: echo ${{ steps.parse-parameter.outputs.CPU }}
 ```
 
 このように`CPU`パラメータがない場合はSKIPする処理を`CPU Value`Stepに追加して、メモリだけを指定した`.deploy staging-demo | MEMORY=2000`コメントをPRに追加します。
@@ -585,7 +596,6 @@ CPUとMEMORYを指定できるGithub Actionsを作成しましたが、片方し
 すると、以下のように`CPU Value`をSkipしたWorkflowが実行されます。
 
 ![Brach Deploy Model](/images/github-branch-deploy/22.png)
-
 
 ## まとめ
 

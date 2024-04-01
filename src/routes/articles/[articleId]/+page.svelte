@@ -26,8 +26,8 @@
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-[3fr,auto] gap-4 mx-auto max-w-[1280px]">
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  <article class="markdown-body mb:pr-4 overflow-auto">{@html data.htmlContent}</article>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	<article class="markdown-body mb:pr-4 overflow-auto">{@html data.htmlContent}</article>
 
 	<aside class="md:w-[360px] md:pl-4 md:pt-0 pt-8">
 		<h2 class="text-2xl font-semibold mb-4">More Articles</h2>

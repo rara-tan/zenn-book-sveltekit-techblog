@@ -5,7 +5,10 @@
 
 <svelte:head>
 	<title>Yossy's Tech Blog</title>
-	<meta name="description" content="Platformエンジニアとして働くYossyのテックブログです。技術記事・おすすめ本・おすすめガジェットなどを紹介していきます。" />
+	<meta
+		name="description"
+		content="Platformエンジニアとして働くYossyのテックブログです。技術記事・おすすめ本・おすすめガジェットなどを紹介していきます。"
+	/>
 </svelte:head>
 
 <div class="py-8 px-4 mb-10 rounded-lg flex flex-col items-center bg-slate-100">
