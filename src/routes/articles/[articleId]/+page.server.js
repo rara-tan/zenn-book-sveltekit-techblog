@@ -32,9 +32,11 @@ export async function load({ params }) {
 		metadata.date = format(metadata.date, 'yyyy-MM-dd');
 	}
 
+  const slug = path.basename(filePath, '.md');
 	const articles = getArticles();
 	// 枠組みに提供するデータを返す
 	return {
+    slug,
 		articles,
 		params,
 		htmlContent, // マークダウンをHTMLに変換したもの

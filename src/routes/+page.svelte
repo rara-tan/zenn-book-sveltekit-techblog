@@ -6,6 +6,11 @@
 <svelte:head>
 	<title>My Awesome Tech Blog</title>
 	<meta name="description" content="This tech blog features many wonderful articles." />
+  <meta property="og:title" content="Yossy's Tech Blog" />
+  <meta property="og:description" content="Platformエンジニアとして働くYossyのテックブログです。技術記事・おすすめ本・おすすめガジェットなどを紹介していきます。" />
+  <meta property="og:site_name" content="Yossy's Tech Blog" />
+  <meta property="og:url" content="https://yssy.io" />
+  <meta property="og:image" content="https://yssy.io/og.png" />
 </svelte:head>
 
 <div class="py-8 px-4 mb-10 rounded-lg flex flex-col items-center bg-slate-100">
