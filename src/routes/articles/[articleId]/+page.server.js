@@ -5,6 +5,7 @@ import markdown from 'markdown-it'; // 外部ライブラリである markdown-i
 import matter from 'gray-matter';
 import { format } from 'date-fns';
 import { getArticles } from '$lib/getArticles';
+import markdownItHighlightJs from 'markdown-it-highlightjs';
 
 const readFile = promisify(fs.readFile);
 
@@ -25,6 +26,7 @@ export async function load({ params }) {
 	// gray-matterを使ってMarkdownとFront Matterを分離
 	const parsedMatter = matter(fileContent);
 	const mdParser = new markdown();
+	mdParser.use(markdownItHighlightJs);
 	const htmlContent = mdParser.render(parsedMatter.content);
 
 	let metadata = parsedMatter.data;
@@ -32,11 +34,11 @@ export async function load({ params }) {
 		metadata.date = format(metadata.date, 'yyyy-MM-dd');
 	}
 
-  const slug = path.basename(filePath, '.md');
+	const slug = path.basename(filePath, '.md');
 	const articles = getArticles();
 	// 枠組みに提供するデータを返す
 	return {
-    slug,
+		slug,
 		articles,
 		params,
 		htmlContent, // マークダウンをHTMLに変換したもの
