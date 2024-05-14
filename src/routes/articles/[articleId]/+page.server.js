@@ -25,7 +25,7 @@ export async function load({ params }) {
 
 	// gray-matterを使ってMarkdownとFront Matterを分離
 	const parsedMatter = matter(fileContent);
-	const mdParser = new markdown();
+	const mdParser = new markdown({ linkify: true });
 	mdParser.use(markdownItHighlightJs);
 	const htmlContent = mdParser.render(parsedMatter.content);
 
